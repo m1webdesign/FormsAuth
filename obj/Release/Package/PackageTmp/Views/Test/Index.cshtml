@@ -1,0 +1,95 @@
+﻿@model System.Collections.Generic.List<MB.Models.POCO.Bus>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="commonMessage"></div>
+<table>
+                <tbody>
+@foreach (var item in Model) { 
+                <tr>
+                    <td>
+                <strong><span class="carName">@item.MakeOfBus</span></strong><br />
+
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "editLink" })<br /><br />
+                    </td>
+                </tr>
+    
+     }
+</tbody>
+</table>
+
+<div id="updateDialog" title="Update Car"></div>
+<script type="text/javascript">
+    var linkObj;
+    $(function () {
+        $(".editLink").button();//make editlink a button
+
+        $('#updateDialog').dialog({ //make dialog
+            autoOpen: false,
+            width: 400,
+            resizable: false,
+            modal: true,
+            buttons: {
+                "Update": function () {
+                    $("#update-message").html(''); //make sure there is nothing on the message before we continue                         
+                    $("#updateCarForm").submit();
+
+
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $(".editLink").click(function () {
+            //change the title of the dialog
+            linkObj = $(this);
+            var dialogDiv = $('#updateDialog');
+            var viewUrl = linkObj.attr('href');//get partial view url
+            $.get(viewUrl, function (data) {
+                dialogDiv.html(data);
+                //validation
+                var $form = $("#updateCarForm");
+                // Unbind existing validation
+                $form.unbind();
+                $form.data("validator", null);
+                // Check document for changes
+                $.validator.unobtrusive.parse(document);
+                // Re add validation with changes
+                $form.validate($form.data("unobtrusiveValidation").options);
+                //open dialog
+                dialogDiv.dialog('open');
+            });
+            return false;
+        });
+
+    });
+
+
+    function updateSuccess() {
+        if ($("#update-message").html() == "True") {
+            
+            //we update the table's info
+            var parent = linkObj.closest("tr");
+            
+            //parent.find(".carName").html($("#MakeOfBus").val());
+            //alert("hello");
+            //parent.find(".carDescription").html(data.Object.Description);
+            //now we can close the dialog
+            $('#updateDialog').dialog('close');
+            
+            //twitter type notification
+            $('#commonMessage').html("Update Complete");
+            $('#commonMessage').delay(400).slideDown(400).delay(3000).slideUp(400);
+            window.location.reload(true);
+        }
+        else {
+            $("#update-message").html(data.ErrorMessage);
+            $("#update-message").show();
+        }
+    }
+    
+</script>

@@ -1,0 +1,291 @@
+﻿@model System.Collections.Generic.List<MB.Models.POCO.BookingInfo>
+
+
+<div id="delete-dialog" title="Confirmation">
+    <p>Are you sure you want to delete this Booking?</p>
+</div>	
+
+<img id="ajax-loader" src="~/Content/Images/ajaxLoading.gif" style="display:none"/>
+
+
+                    <div class="filters">
+
+                        @Html.Label("From", new { @class = "firstlabel" }) <input id="datefrom" type="text" class="text-box"/>
+                        @Html.Label("To", new { @class = "secondlabel" }) <input id="dateto" type="text" class="text-box"/>
+
+                        <div style="clear:both;"></div>
+                        
+                        @Html.Label("Due journey ends only") 
+                        <input type ="checkbox" id="journeyendcheck" />
+
+                        <div style="clear:both;"></div>
+                    </div>
+<div id="bookInfo">
+   
+    @Html.Partial("MyBookingList")
+
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#datefrom").datepicker({
+            dateFormat: 'd MM, yy',
+            onClose: function (selectedDate)
+            {
+                $("#dateto").datepicker("option", "minDate", selectedDate);//can't have 'to' before 'from'
+            },
+            onSelect: function (selectedDate) {
+                if ($('#dateto').val() == '')
+                    $('#dateto').val(selectedDate);
+                loadDates(this, event, '#bookInfo', $('#dateto').val(), selectedDate);
+            }
+        });
+
+        $("#dateto").datepicker({
+            dateFormat: 'd MM, yy',
+            onClose: function (selectedDate) {
+                $("#datefrom").datepicker("option", "maxDate", selectedDate);//can't have 'from' before 'to'
+            },
+            onSelect: function (selectedDate) {
+                if ($('#datefrom').val() == '')
+                    $('#datefrom').val(selectedDate);
+                loadDates(this, event, '#bookInfo', selectedDate, $('#datefrom').val());
+            }
+        });
+    });
+
+    $("#journeyendcheck").click(
+        function () {
+            var to = $('#dateto').val();
+            var from = $('#datefrom').val();
+
+            if (from == '' || to == '') {
+                to = '31/12/9999';
+                from = '01/01/0001';
+
+            }
+
+            if($('#journeyendcheck').is(':checked'))
+                journeyEndFilter('#bookInfo', to, from);
+            else
+                loadDates(this, event, '#bookInfo', to, from);
+        }
+     );
+
+    var deleteLinkObj;
+    var bookingid;
+    // delete Link
+    $('a.delete').live("click", function (event) {
+        deleteLinkObj = $(this);  //for future use
+        bookingid = deleteLinkObj.attr('id'); //id of link is set to bookingid, will be used as 'data'
+        $('#delete-dialog').dialog('open');
+        return false; // prevents the default behaviour
+    });
+
+    $('a.tableLink').live("click", function (event) { loadDialog(this, event, '#bookInfo'); });
+
+    /*.click only works once*/
+    //$(".tableLink").click(
+    //    function (event) {
+    //        loadDialog(this, event, '#bookInfo');
+    //    });
+    
+
+    @*
+    $('#datefrom').datepicker({
+        dateFormat: 'd MM, yy',
+
+        onSelect: loadDates(this, event, '#bookInfo')
+
+    });
+    
+    $('#dateto').datepicker({ dateFormat: 'd MM, yy' });
+    *@
+    
+
+</script>
+
+@section sections
+{
+    @*<div class="section">
+        <b>FILTER BY DATES</b>
+        <p>
+        @Html.Label("From", new { @class = "label" }) <input id="datefrom" type="text" class="text-box"/><br />
+        @Html.Label("To", new { @class = "label" }) <input id="dateto" type="text" class="text-box"/>
+        <div class="clearfix"></div>
+    </div>*@
+
+
+
+    <div class="section">
+            <b>MY BOOKINGS</b>
+            <p>
+                You may filter your bookings through the criteria given in the above filters.
+                <br /><br />
+
+                In the list to the right, you can edit your booking or fill out a 'Journey End' form by
+                clicking on the relevant link. You may also cancel a booking by checking it and hitting
+                'cancel booking' at the bottom.
+                <br /><br />
+            </p>
+    </div>
+}
+
+<script type="text/javascript">
+    function loadDates(tag, event, target, toDate, fromDate) {
+
+        $.ajax({
+            url: '@Url.Action("SelectedDates")',//method to call
+            type: "POST", //need post method on controller in order to fire
+            data: { maxDate: toDate, minDate: fromDate },//parameters
+            beforeSend: function () {
+                //$("#ajax-loader").show();
+                $("#ajax-loader").show();
+                $(target).hide();
+            },
+            complete: function () {
+                $("#ajax-loader").hide();
+                $(target).show();
+            },
+            success: function (data) {//if successful
+                $(target).html(data); 
+            },
+            error: function (xhr) { //if error
+                alert('error' + ' ' + xhr.responseText);
+            }
+        });
+        return false;
+    }
+
+    function journeyEndFilter(target, toDate, fromDate) {
+        $.ajax({
+            url: '@Url.Action("SelectedDateAndJourneyEnd")',//method to call
+            type: "POST", //need post method on controller in order to fire
+            data: { maxDate: toDate, minDate: fromDate },//parameters
+            beforeSend: function () {
+                //$("#ajax-loader").show();
+                $("#ajax-loader").show();
+                $(target).hide();
+            },
+            complete: function () {
+                $("#ajax-loader").hide();
+                $(target).show();
+            },
+            success: function (data) {//if successful
+                $(target).html(data);
+            },
+            error: function (xhr) { //if error
+                alert('error' + ' ' + xhr.responseText);
+            }
+        });
+        return false;
+        alert("checked");
+    }
+
+    
+
+
+    function loadDialog(tag, event, target) {
+        event.preventDefault();
+        var $loading = $('<img src="../../Content/images/ajaxLoading.gif" alt="loading" class="ui-loading-icon">');
+        var $url = $(tag).attr('href');
+        var $title = $(tag).attr('title');
+        var $dialog = $('<div></div>');
+
+        $dialog.empty();
+        
+        $dialog
+            .append($loading)
+            .load($url)
+		    .dialog({
+		        autoOpen: false
+			    , title: $title
+			    , width: 500
+                , modal: true
+			    , minHeight: 200
+                , show: 'fade'
+                , hide: 'fade',
+                position: {
+                    my: 'center',
+                    at: 'top',
+                    of: $('#main')
+                }
+		    });
+
+        $dialog.dialog("option", "buttons", {
+            "Cancel": function () {
+                $(this).dialog("close");
+                $(this).empty();
+            },
+            "Submit": function () {
+                
+                $.validator.unobtrusive.parse($("#target"));
+                $("#target").validate();
+                if ($("#target").validate().form()) {
+                    var dlg = $(this);
+                    $.ajax({
+                        url: $url,
+                        type: 'POST',
+
+                        data: $("#target").serialize(),//serialize - send whole object (all fields)
+
+                        complete: function (xmlHttp) {
+
+                        },
+                        success: function (response) {
+                            alert("success: " + response.status);
+                                $(target).html(response); //if not, show #bookinfo
+
+                                dlg.empty();
+                                dlg.dialog('close');
+                            
+                        },
+                        error: function (xhr) {
+                            alert(xhr.responseText);
+                            if (xhr.status == 400)
+                                dlg.html(xhr.responseText, xhr.status);     /* display validation errors in edit dialog */
+                            else
+                                displayError(xhr.responseText, xhr.status); /* display other errors in separate dialog */
+
+                        }
+                    });
+                }
+            }
+        });
+
+        $dialog.dialog('open');
+
+    };
+
+
+    $('#delete-dialog').dialog({
+        autoOpen: false, width: 400, resizable: false, modal: true, //Dialog options
+        buttons: {
+            "Continue": function () {
+
+                $.ajax({                    
+                    url: deleteLinkObj.attr('href'),                     
+                    type: 'POST',                     
+                    data: { id: bookingid },
+                    success: 
+                        function (result) {
+                            //refresh bookinglist
+                            $("#bookInfo").html(result);
+                            $('#delete-dialog').dialog('close');
+                        },
+                    error: function (result) {
+                        alert(result.responseText);
+                    }
+                });
+            },
+            "Cancel": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+
+</script>

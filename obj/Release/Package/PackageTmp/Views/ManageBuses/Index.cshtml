@@ -1,0 +1,103 @@
+﻿@model System.Collections.Generic.List<MB.Models.POCO.Bus>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_NonHomeLayout.cshtml";
+}
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Content/scripts/dialogs.js"></script>
+}
+
+<div id="delete-dialog" title="Confirmation">
+    <p>Deleting the bus will delete all associated bookings</p>
+    <p>Are you sure you want to delete this bus?</p>
+</div>	
+
+<div id="busInfo">
+@Html.Partial("ManageBusList")
+</div>
+
+
+@section sections
+{
+    <div class="section">
+        <b>MANAGE BUSES</b><br /><br />
+        To view and edit the details of a bus, click on the relevant name from the list. <br /><br />
+
+        Should you wish to delete a bus fromthe database, click the 'x' tothe bottom right of its listing. 
+        <br /><i>note: this will also delete all bookings associated with the bus.</i> <br /><br />
+
+        Buses may also be added to the database by clicking the 'add bus' button, details can then be entered
+        and saved from the popup window
+    </div>
+}
+
+<div class="submitholder">
+
+    <a href ="@Url.Action("AddBus")" id="addbutton" name="Add Bus" class = "submit">Add Bus</a>
+
+    @*could use 'submit' button but want to use same 'load dialog' function, plus don't want 'return' to trigger call*@
+    @*<input type ="submit" class="submit" id="addbutton" value="Add Bus" />*@ 
+</div>
+<script type="text/javascript">
+
+/******************ONCLICK HANDLERS*************************/
+var deleteLinkObj;
+    var bookingid;
+    // delete Link
+    $('a.delete').live("click", function (event) {
+        deleteLinkObj = $(this);  //for future use
+        busid = deleteLinkObj.attr('id'); //id of link is set to bookingid, will be used as 'data'
+        $('#delete-dialog').dialog('open'); //dialog handler declared below
+        return false; // prevents the default behaviour
+    });
+
+
+                    /*************HTML DIALOGS, BECAUSE OF FILE UPLOAD************************/
+
+$('a.tableLink').live("click", function () {
+    loadHTMLDialog(this);
+    return false;
+});
+
+
+$('#addbutton').live("click", function () {
+    loadHTMLDialog(this);
+    return false;
+});
+
+
+</SCRIPT>
+
+<script type="text/javascript">
+
+
+/********************ATTACH DELETE DIALOG HANDLER**************************/
+$('#delete-dialog').dialog({
+        autoOpen: false, width: 400, resizable: false, modal: true, //Dialog options
+        buttons: {
+            "Continue": function () {
+
+                $.ajax({                    
+                    url: deleteLinkObj.attr('href'),                     
+                    type: 'POST',                     
+                    data: { id: busid },
+                    success: 
+                        function (result) {
+                            //refresh bookinglist
+                            $("#busInfo").html(result);
+                            $('#delete-dialog').dialog('close');
+                        },
+                    error: function (result) {
+                        alert(result.responseText);
+                    }
+                });
+            },
+            "Cancel": function () { 
+                $(this).dialog("close");
+            }
+        }
+});
+</script>

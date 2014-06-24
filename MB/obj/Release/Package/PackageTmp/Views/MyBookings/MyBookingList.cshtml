@@ -1,0 +1,106 @@
+﻿@model System.Collections.Generic.List<MB.Models.POCO.BookingInfo>
+
+<script type="text/javascript">
+$(function () {
+
+    $('tr:even').css({ backgroundColor: '#f0f0f0' });
+});
+</script>
+
+<table class="traditional">
+    <tbody>
+
+        @foreach(var bookinginfo in Model)
+        {
+            <tr>
+                @if(bookinginfo.BookingDateTimeStart >= DateTime.Now.Date)
+                {
+                    <td class = "highlight">
+                        <a href ="@Url.Action("EditBooking", new{bookingid = bookinginfo.ID})" class = "tableLink">
+                                <div class="floatLeft">
+                                        <div class="date">
+                                            <div class="month bkHighlight">
+                                                @bookinginfo.BookingDateTimeStart.ToString("MMMM")
+                                            </div>
+                                            <div class="day">
+                                                @bookinginfo.BookingDateTimeStart.Day.ToString()
+                                            </div>
+                                        </div>
+
+                                </div>
+                                <div class="listHead">
+                                    @bookinginfo.Destination 
+                                </div>
+                                <div class="listSubHead">
+                                    @Html.Encode(String.Format("{0:d}" , bookinginfo.BookingDateTimeEnd))<br />
+                                    
+                                    
+                                </div>
+                                <div class="listSubHead">
+                                    @bookinginfo.BookingDateTimeEnd.TimeOfDay
+                                </div>
+                        </a>
+                        <a href="@Url.Action("DeleteBooking", new{id = bookinginfo.ID})" class="delete" id="@bookinginfo.ID"></a> 
+                            @*set id so can access bookingid when deleting*@
+                    </td>
+                }
+                else
+                {
+
+                    if (bookinginfo.JourneyEnds.Count > 0)//if journey end has been filled out
+                    {
+                        <td>
+                            <div class="floatLeft">
+                                        <div class="date">
+                                            <div class="month bkHighlight">
+                                                @bookinginfo.BookingDateTimeStart.ToString("MMMM")
+                                            </div>
+                                            <div class="day">
+                                                @bookinginfo.BookingDateTimeStart.Day.ToString()
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                <div class="listSubHead">
+                                    @bookinginfo.BookingDateTimeStart.ToString("t")<br />
+                                    @bookinginfo.Destination<br />
+
+                                    Journey End Completed<br />
+                                    
+                                </div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td class = "highlight">
+                            <a href ="@Url.Action("NewJourneyEnd", new{bookingid = bookinginfo.ID})" class="tableLink" >
+                                    <div class="floatLeft">
+                                        <div class="date">
+                                            <div class="month bkHighlight">
+                                                @bookinginfo.BookingDateTimeStart.ToString("MMMM")
+                                            </div>
+                                            <div class="day">
+                                                @bookinginfo.BookingDateTimeStart.Day.ToString()
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="listHead">
+                                        @bookinginfo.BookingDateTimeStart.ToString("t")<br />
+                                        @bookinginfo.Destination<br />
+
+                                        Journey End Due
+                                    </div>
+                                    
+                            </a>
+
+                        </td>
+                    }
+                }
+
+            </tr>
+
+        }
+    </tbody>
+</table>
+

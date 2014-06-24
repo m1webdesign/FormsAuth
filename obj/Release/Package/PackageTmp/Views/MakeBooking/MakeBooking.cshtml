@@ -1,0 +1,49 @@
+﻿@model MB.Models.POCO.BookingInfo
+@using (Ajax.BeginForm("MakeBooking", "MakeBooking", new AjaxOptions //action MakeBooking on controller MakeBooking
+                                                                        //not sending anything but few ajax options
+        
+        {UpdateTargetId = "update-message",  //where response will be populated (update-message div)
+            InsertionMode = InsertionMode.Replace, 
+            HttpMethod = "POST", //do httppost
+            LoadingElementId = "ajax-loader",
+            OnSuccess = "updateSuccess" //on success call javascript function updatesuccess
+        }, new { @id = "target" }))  //giv e it a name so can update validation after gets dynamically loaded into dialog
+    {
+    
+    @Html.ValidationSummary()
+    
+    <div id="update-message" class="error invisible"></div>
+    <fieldset>
+        <legend>Make Booking</legend>
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Destination)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Destination)
+            @Html.ValidationMessageFor(model => model.Destination)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BookingDateTimeStart)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.BookingDateTimeStart)
+            @Html.ValidationMessageFor(model => model.BookingDateTimeStart)
+        </div>
+
+    </fieldset>
+}
+
+<script type="text/javascript">
+    @Scripts.Render("~/bundles/jqueryval")
+
+    
+</script>
+
+<script type="text/javascript">
+    $(function () { $(".datefield").datepicker(); });
+</script>
+
+<img src="../../Content/images/ajaxLoading.gif" alt="loading" class="ui-loading-icon" id="ajax-loader" />

@@ -1,0 +1,33 @@
+﻿@model MB.Models.POCO.Bus
+
+@using (Ajax.BeginForm("Edit", "Test", new AjaxOptions
+        {   UpdateTargetId = "update-message",
+            InsertionMode = InsertionMode.Replace, 
+            HttpMethod = "POST",
+            OnSuccess = "updateSuccess"
+        }, new { @id = "updateCarForm" }))
+    {
+    @Html.ValidationSummary(true)
+    <div id="update-message" class="error invisible"></div>
+    <fieldset>
+        <legend>CarModel</legend>
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MakeOfBus)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MakeOfBus)
+            @Html.ValidationMessageFor(model => model.MakeOfBus)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PreviousDamage)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.PreviousDamage)
+            @Html.ValidationMessageFor(model => model.PreviousDamage)
+        </div>
+    </fieldset>
+}

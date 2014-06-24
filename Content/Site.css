@@ -1,0 +1,859 @@
+﻿body {
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    color: #232323;
+    background-color: #f0f0f0;
+    margin:0; padding:0;
+}
+
+header, footer, nav, section {
+    display: block;
+}
+
+a
+{
+    text-decoration: none;
+}
+
+
+
+
+/* Styles for main layout
+-----------------------------------------------------------*/
+#header
+{
+    width: 100%;
+    background-color: #25476c;
+    padding-top:5px;
+    padding-bottom:5px;
+    min-width:1020px;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+#header .logo
+{
+    width: 215px;
+    height: 32px;
+    background-image:url(Images/logowht.png);
+    float:left;
+    margin-left:10px;
+    
+}
+
+#header .logo a
+{
+    display: block;
+    cursor: pointer;
+    height:100%;
+    width:100%;
+    
+}
+
+#navmenu
+{
+    float:right;
+    width: 53%;
+    min-width:700px;
+    height:40px;
+    color:#dfdfdf;
+}
+
+#navmenu .navbutton
+{
+    width: 135px;
+    height: 30px;
+    margin-right: 5px;
+    background-color: #2b527d;
+    float:right;
+    text-align:center;
+    padding-top:5px;
+    color:#dfdfdf;
+}
+
+    #navmenu .navbutton:visited
+    {
+        color:#dfdfdf;
+        text-decoration:none;
+        
+    }
+
+#navmenu .navbutton:hover
+{
+    color: #2b527d;
+    background-color:#dfdfdf;
+    cursor:pointer;
+    text-decoration:none;
+}
+
+#subheader
+{
+    width: 100%;
+    clear:both;
+    height: 20px;
+    padding-top:10px;
+    min-width:1020px;
+}
+
+#container
+{
+    width: 100%;
+    background-color: #ddd;
+    min-width:1020px;
+}
+
+#main
+{
+    margin-left: 13px;
+    margin-right: 13px;
+    margin-top: 13px;
+    padding-top:25px;
+    padding-bottom:55px;
+    min-width:1020px;
+}
+
+#footer
+{
+    clear: both;
+    margin-bottom:20px;
+    padding-top:20px;
+    padding-bottom:20px;
+    vertical-align:text-bottom;
+    color:#2a2a2a;
+    min-width:1020px;
+
+}
+
+#footer div
+{
+    margin-left: 10px;
+}
+
+#footer a
+{
+    text-decoration: none;
+    color: #25476c;
+
+}
+
+.clearfix
+{
+    clear: both;
+}
+
+.floatLeft
+{
+    float: left;
+    margin-right:20px;
+    margin-top:5px;
+    margin-left:5px;
+
+}
+
+.floatRight
+{
+    float: right;
+
+}
+
+h2.title
+{
+        width:90%;
+        padding:6px;
+        border-top:1px solid #5f5e5e;
+        border-bottom:1px solid #5f5e5e;
+        color:#5f5e5e;
+}
+
+img
+{
+    border-style:none;
+}
+
+/* Custom
+-----------------------------------------------------------*/
+
+.dropshadow
+{
+    width: 100%;
+    min-width:100%;
+    min-height:1px;
+    background-image: url('images/shadow.png');
+    background-repeat: repeat-x;
+}
+
+.periodlabel
+{
+    width: 110px;
+    height:110px;
+    float: left;
+    background-image:url(images/Times.png);
+    background-repeat:no-repeat;
+    
+}
+
+    .periodlabel .name
+    {
+        margin: 0 auto;
+        padding-top:38px;
+        width: 49px;
+        text-align:center;
+        color:#2a2a2a;
+        font-size:0.75em;
+        font-weight:bold;
+    }
+
+.bigger
+{
+    font-weight:bold;
+    font-size:1.2em;
+}
+
+
+/* Styles for a
+-----------------------------------------------------------*/
+
+.divLink
+{
+    text-decoration: none;
+    width: 90%;
+    background-color: #f2816b;
+    border-radius: 6px;
+    padding: 6px;
+    color: #fff;
+    display:block;
+
+}
+
+a.regular 
+    {
+        text-decoration: underline;
+        color:#0645AD !important;
+    }
+
+a.tableLink
+{
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #25476c;
+    text-decoration:none;
+}
+
+a.tableLink:hover
+{
+    background-color:#0380a5;
+}
+
+a.headerLink
+{
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #25476c;
+    text-decoration:none;
+}
+
+a.headerLink:hover
+{
+    background-color:#0380a5;
+}
+
+a.delete
+{
+    float: right;
+    background-image: url('images/remove.png');
+    background-repeat:no-repeat;
+    width:10px;
+    height:10px;
+}
+
+a .listHead
+{
+    color: #2a2a2a;
+}
+
+.listHead .large
+    {
+        font-size: 1.2em;
+    }
+
+table.header tr td a
+{
+    padding-top:20px;
+    padding-bottom:20px;
+    cursor:pointer;
+}
+
+table.header tr td.selected a
+{
+    background-color:#0380a5;
+    color:#fff;
+  
+}
+
+.listSubHead
+{
+    color: #b3b7c0;
+}
+
+a.submit
+{
+    float: right;
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    background-color:#d3d3d3;
+    color:#000;
+}
+
+a.search
+{
+    float: right;
+    padding-top: 0px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #d3d3d3;
+    color: #000;
+}
+
+    a.submit:hover
+    {
+        background-color: #f0f0f0;
+    }
+
+
+/* Styles for diary date
+-----------------------------------------------------------*/
+
+
+
+
+.date {
+	text-align: center;
+	width: 57px;
+    padding:7px;
+}
+
+.date .month {
+	display: block;
+	font-weight: bold;
+	background-color:#007ed1;
+	font-size:10px;
+	color:#FFFFFF;
+	padding-top:3px;
+	padding-bottom:3px;
+	padding-left:1px;
+	padding-right:1px;
+}
+
+.date .day {
+	background: url(images/bkDate.jpg) bottom left no-repeat;
+	font-weight: bold;
+	padding: 2px 0px 7px 0px;
+	line-height: 90%;
+	display: block;
+	color: #3b3b3b;
+	border-right:1px solid #000000;
+	font-size:2.0em;
+}
+
+/* Styles for tables
+-----------------------------------------------------------*/
+table
+{
+    
+    font-size:1.1em;
+    border:none;
+    
+}
+
+table tr
+{
+    clear:both;
+    border:none;
+}
+
+table td.unavailable
+{
+    background-color:#e6edf7;
+
+}
+
+table td.available
+{
+    background-color: #bce2ce;
+    border:2px solid #bce2ce;
+}
+
+
+table td.small
+{
+    min-width: 10%;
+    border: none;
+
+
+}
+
+table.header
+{
+
+}
+
+table.header tr td
+{
+    background-color:#dfdfde;
+    margin-right:10px;
+
+}
+
+
+
+table.traditional
+{
+    width:90%;
+    background-color: #f0f0f0;
+    border-radius:6px;
+
+    
+}
+
+table .traditional tr
+{
+
+    
+}
+
+    table.traditional td
+    {
+        border-top:1px solid #e1eaf5;
+    }
+
+    table.traditional td.title
+    {
+        padding: 10px;
+    }
+
+    table tr td.highlight:hover
+{
+    background-color:#0380a5;
+}
+
+
+
+/* Styles for input
+-----------------------------------------------------------*/
+.dropdown
+{
+    width: 100%;
+}
+
+input.delete
+{
+    float: right;
+}
+
+.submitholder
+{
+    margin-top:10px;
+    width: 90%;
+
+}
+
+
+input.submit
+{
+    float: right;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+
+/* Styles for loginhomepage
+-----------------------------------------------------------*/
+#logincontainer
+{
+    margin: 0 auto;
+    width: 390px;
+    height: 335px;
+    background-color:#eee;
+    border-radius:10px;
+    
+}
+
+#logincontainer .content
+{
+    width:80%;
+    height:80%;
+    margin: 0 auto;
+    top:17%;
+    position:relative;
+}
+
+/* Styles for nonhomepage
+-----------------------------------------------------------*/
+
+#leftcolumn
+{
+    float: left;
+    width:332px;
+    min-width:332px;
+    margin-right:50px;
+}
+
+#leftcolumn .section
+{
+    padding:10px 10px 10px 10px;
+    background-color: #fff;
+    clear:both;
+    margin-bottom:10px;
+    margin-left:5px;
+    width:312px;
+    border-radius:6px;
+
+}
+
+#leftcolumn .section b
+{
+    color: #25476c;
+    clear:both;
+    font-size:1.2em;
+    padding-bottom:7px;
+    
+}
+
+    #leftcolumn .section b
+    {
+        clear: both;
+    }
+
+#rightcolumn
+{
+    float: left;
+    margin-left:10px;
+    width: 60%;
+    min-width:610px;
+}
+
+#bookinginfo
+{
+    width: 90%;
+    font-weight:bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* TAB MENU   
+----------------------------------------------------------*/
+ul#menu {
+    border-bottom: 1px #5C87B2 solid;
+    padding: 0 0 2px;
+    position: relative;
+    margin: 0;
+    text-align: right;
+}
+
+ul#menu li {
+    display: inline;
+    list-style: none;
+}
+
+ul#menu li#greeting {
+    padding: 10px 20px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 2.8em;
+    color: #fff;
+}
+
+ul#menu li a {
+    padding: 10px 20px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 2.8em;
+    background-color: #e8eef4;
+    color: #034af3;
+    border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+}
+
+ul#menu li a:hover {
+    background-color: #fff;
+    text-decoration: none;
+}
+
+ul#menu li a:active {
+    background-color: #a6e2a6;
+    text-decoration: none;
+}
+
+ul#menu li.selected a {
+    background-color: #fff;
+    color: #000;
+}
+
+/* FORM LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+input[type="text"], 
+input[type="password"] {
+    border: 1px solid #ccc;
+    padding: 2px;
+    font-size: 1.2em;
+    color: #444;
+    width: 200px;
+    margin-bottom:3px;
+}
+
+select {
+    border: 1px solid #ccc;
+    padding: 2px;
+    font-size: 1.2em;
+    color: #444;
+    width:205px;
+    padding: 2px;
+}
+
+input[type="submit"] {
+    font-size: 1.2em;
+    padding: 5px;
+}
+
+
+
+/* MISC  
+----------------------------------------------------------*/
+.clear {
+    clear: both;
+}
+
+.error {
+    color: Red;
+}
+
+nav, 
+#menucontainer {
+    margin-top: 40px;
+}
+
+div#title {
+    display: block;
+    float: left;
+    text-align: left;
+}
+
+#logindisplay {
+    font-size: 1.1em;
+    display: block;
+    text-align: right;
+    margin: 10px;
+    color: White;
+}
+
+#logindisplay a:link {
+    color: white;
+    text-decoration: underline;
+}
+
+#logindisplay a:visited {
+    color: white;
+    text-decoration: underline;
+}
+
+#logindisplay a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #ff0000;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/* Styles for editor and display helpers
+----------------------------------------------------------*/
+.display-label, 
+.editor-label {
+    margin: 1em 0 0 0;
+    width:180px;
+    float:left;
+    overflow:hidden;
+    
+}
+
+.long-editor-label {
+    margin: 1em 0 0 0;
+    width:210px;
+    float:left;
+    overflow:hidden;
+    
+}
+
+.display-field, 
+.editor-field {
+    margin: 0.5em 0 0 0;
+    float:left;
+    width:200px;
+}
+
+.text-box {
+
+    float:left;
+    margin-left:5px;
+}
+
+.label
+{
+    float:left;
+    width:90px;
+}
+
+.filters
+{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.filters .firstlabel
+{
+    float:left;
+    margin-right:10px;
+}
+
+.filters .secondlabel
+{
+    float:left;
+    margin-right:10px;
+    margin-left:10px;
+}
+
+.text-box.multi-line {
+    height: 6.5em;
+}
+
+.tri-state {
+    width: 6em;
+}
+
+
+#commonMessage {
+ position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  font-size:28px;
+  line-height: 70px;
+  text-align: center;
+  color: #000;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  filter:alpha(opacity=92);
+  -moz-opacity: 0.92;
+  opacity: 0.92;
+  display: none; /* LEAVE THIS IN*/
+}
+
+.invisible {display:none;}
+
+.blog-header
+{
+    background-color:#232323;
+    color: #BBB;
+    text-shadow: black 1px 1px 0px;
+    font-family: Arial, Helvetica, Sans-Serif;    
+    width:100%;
+    padding:5px;
+    margin-left:auto;
+    margin-right:auto;
+    padding-left: 40px;
+}
+.blog-header a {font-weight:bold; text-decoration:none; color: #BBB;}
+.blog-header a:hover {font-weight:bold; text-decoration:underline;color: #BBB;}
+
+
+
