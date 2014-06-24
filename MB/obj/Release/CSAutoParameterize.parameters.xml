@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="MinibusContext-Web.config Connection String" description="MinibusContext Connection String used in web.config by the application to access the database." defaultValue="data source=m1webdesign.co.uk;initial catalog=m1webdesign;user id=iainwilson87;password=18301117;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\wilsoni\\Desktop\\MB\\MB\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MinibusContext']/@connectionString" />
-  </parameter>
-</parameters>
